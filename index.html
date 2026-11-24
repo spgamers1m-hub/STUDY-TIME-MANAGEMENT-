@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#160b10">
+
+  <title>Study Time</title>
+  <link rel="manifest" href="./manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="mtLoader">
+  <div class="liquid-bg"></div>
+
+  <div class="mst-energy-effects">
+    <div class="mst-orbit mst-orbit-one"></div>
+    <div class="mst-orbit mst-orbit-two"></div>
+    <div class="mst-light mst-light-one"></div>
+    <div class="mst-light mst-light-two"></div>
+    <div class="mst-light mst-light-three"></div>
+  </div>
+
+  <div class="liquid-wave wave-one"></div>
+  <div class="liquid-wave wave-two"></div>
+
+  <div class="loader-content">
+    <div class="liquid-orb">
+      <div class="orb-inner"></div>
+      <div class="orb-shine"></div>
+    </div>
+
+    <h1 class="liquid-title mst-letter-wave" aria-label="STUDY TIME">
+      <span>S</span><span>T</span><span>U</span><span>D</span><span>Y</span>
+      <span class="mst-space"></span>
+      <span>T</span><span>I</span><span>M</span><span>E</span>
+    </h1>
+
+    <p class="loader-subtitle">made by Jibon</p>
+
+    <div class="loader-progress">
+      <div id="mtProgress"></div>
+    </div>
+
+    <div class="loader-percent" id="mtPercent">0%</div>
+  </div>
+</div>
+
+<!-- BACKGROUND -->
+<div class="ambient-bg"></div>
+<canvas id="particles"></canvas>
+
+<!-- MAIN APP -->
+<div class="app-container">
+
+  <!-- HEADER -->
+  <header class="topbar glass">
+    <div class="brand">
+      <div class="brand-icon">S</div>
+
+      <div class="brand-text">
+        <h1>STUDY <span>TIME</span></h1>
+        <p>CLASS & ATTENDANCE MANAGER</p>
+      </div>
+    </div>
+
+    <button class="menu-btn" id="menuBtn" type="button">☰</button>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav-menu glass" id="navMenu">
+    <button class="nav-item active" data-page="dashboard">Dashboard</button>
+    <button class="nav-item" data-page="attendance">Attendance</button>
+    <button class="nav-item" data-page="schedule">Schedule</button>
+    <button class="nav-item" data-page="history">History</button>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- NOTIFICATIONS -->
+    <div class="notification-settings glass-card">
+      <h3>🔔 Phone Notifications</h3>
+
+      <p id="notificationStatus">
+        Select your name to enable notifications.
+      </p>
+
+      <select id="studentName" class="student-notification-select">
+        <option value="">Select Your Name</option>
+        <option value="Sir">ADMIN</option>
+        <option value="Student 1">ACCOUNT SIR</option>
+        <option value="Student 2">MIRAZ SIR</option>
+      </select>
+
+      <button id="enableNotifications" type="button">
+        Enable Notifications
+      </button>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section class="page active" id="dashboard">
+
+      <div class="welcome-section">
+        <p class="eyebrow">STUDY MANAGEMENT</p>
+
+        <h2>Welcome to <span>Study Time</span></h2>
+
+        <p class="welcome-description">
+          Your class attendance and schedule, organized in one place.
+        </p>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+
+        <div class="stat-card glass">
+          <div class="stat-icon">◷</div>
+          <p>Classes</p>
+          <h3 id="totalClasses">0</h3>
+        </div>
+
+        <div class="stat-card glass">
+          <div class="stat-icon">✓</div>
+          <p>Classes Attended</p>
+          <h3 id="totalAttendance">0</h3>
+        </div>
+
+        <div class="stat-card glass">
+          <div class="stat-icon">▦</div>
+          <p>Schedules</p>
+          <h3 id="totalSchedules">0</h3>
+        </div>
+
+      </div>
+
+      <!-- QUICK ACCESS -->
+      <div class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">QUICK ACCESS</p>
+            <h3>Explore Study Time</h3>
+          </div>
+        </div>
+
+        <div class="quick-grid">
+
+          <button class="quick-card glass" data-page="attendance">
+            <span class="quick-icon">◉</span>
+            <span>Attendance</span>
+            <small>View records</small>
+          </button>
+
+          <button class="quick-card glass" data-page="schedule">
+            <span class="quick-icon">▦</span>
+            <span>Schedule</span>
+            <small>Class timetable</small>
+          </button>
+
+          <button class="quick-card glass" data-page="history">
+            <span class="quick-icon">↺</span>
+            <span>History</span>
+            <small>Past records</small>
+          </button>
+
+          <button class="quick-card glass" data-page="admin">
+            <span class="quick-icon">⌘</span>
+            <span>Admin Panel</span>
+            <small>Management</small>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- RECENT ACTIVITY -->
+      <div class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LATEST UPDATES</p>
+            <h3>Recent Activity</h3>
+          </div>
+        </div>
+
+        <div class="glass activity-card" id="recentActivity">
+          <p class="empty-state">No activity yet.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ATTENDANCE -->
+    <section class="page" id="attendance">
+
+      <div class="page-heading">
+        <button class="back-btn" type="button" data-back>← Back</button>
+        <p class="eyebrow">RECORDS</p>
+        <h2>Attendance</h2>
+        <p>View attendance records added by the administrator.</p>
+      </div>
+
+      <div class="glass content-card">
+        <div class="section-heading">
+          <h3>Attendance Records</h3>
+        </div>
+
+        <div id="attendanceList">
+          <p class="empty-state">No attendance records available.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="page" id="schedule">
+
+      <div class="page-heading">
+        <button class="back-btn" type="button" data-back>← Back</button>
+        <p class="eyebrow">CLASS ROUTINE</p>
+        <h2>Schedule</h2>
+        <p>Check your upcoming classes and timetable.</p>
+      </div>
+
+      <div class="glass content-card">
+        <div class="section-heading">
+          <h3>Class Schedule</h3>
+        </div>
+
+        <div id="scheduleList">
+          <p class="empty-state">No schedules available.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- HISTORY -->
+    <section class="page" id="history">
+
+      <div class="page-heading">
+        <button class="back-btn" type="button" data-back>← Back</button>
+        <p class="eyebrow">ARCHIVE</p>
+        <h2>History</h2>
+        <p>Previously saved attendance records.</p>
+      </div>
+
+      <div class="glass content-card">
+        <div id="historyList">
+          <p class="empty-state">Your history will appear here.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ADMIN -->
+    <section class="page" id="admin">
+
+      <div class="page-heading">
+        <button class="back-btn" type="button" data-back>← Back</button>
+        <p class="eyebrow">RESTRICTED ACCESS</p>
+        <h2>Admin Panel</h2>
+        <p>Authorized management area.</p>
+      </div>
+
+      <!-- ADMIN LOGIN -->
+      <div class="glass content-card" id="adminLoginCard">
+        <h3>Admin Authentication</h3>
+        <p class="muted">Sign in to manage attendance and schedules.</p>
+
+        <form id="adminLoginForm">
+
+          <label for="adminUsername">Email</label>
+          <input
+            type="email"
+            id="adminUsername"
+            placeholder="Enter admin email"
+            required
+          >
+
+          <label for="adminPassword">Password</label>
+          <input
+            type="password"
+            id="adminPassword"
+            placeholder="Enter password"
+            required
+          >
+
+          <button class="primary-btn" type="submit">
+            Access Admin
+          </button>
+
+          <p class="form-message" id="loginMessage"></p>
+
+        </form>
+      </div>
+
+      <!-- ADMIN DASHBOARD -->
+      <div class="glass content-card hidden" id="adminDashboard">
+
+        <div class="admin-top">
+          <h3>Admin Dashboard</h3>
+          <button class="outline-btn" id="logoutBtn">Logout</button>
+        </div>
+
+        <div class="admin-tabs">
+          <button class="admin-tab active" data-admin-tab="addAttendance">
+            Add Attendance
+          </button>
+
+          <button class="admin-tab" data-admin-tab="addSchedule">
+            Add Schedule
+          </button>
+
+          <button class="admin-tab" data-admin-tab="manageActivity">
+            Manage Activity
+          </button>
+        </div>
+
+        <!-- ADD ATTENDANCE -->
+        <div class="admin-section active" id="addAttendance">
+
+          <form id="attendanceForm">
+
+            <label for="attendanceSubject">Select Sir</label>
+
+            <select id="attendanceSubject" required>
+              <option value="">Select Sir</option>
+              <option value="Maths Sir">Maths Sir</option>
+              <option value="Account Sir">Account Sir</option>
+            </select>
+
+            <label for="attendanceDate">Date</label>
+            <input type="date" id="attendanceDate" required>
+
+            <label for="attendanceStatus">Attendance Details</label>
+
+            <select id="attendanceStatus" required>
+              <option value="">Select status</option>
+              <option value="Present">Present</option>
+              <option value="Absent">Absent</option>
+              <option value="Class Cancelled">Class Cancelled</option>
+            </select>
+
+            <label for="attendanceNote">Note (Optional)</label>
+
+            <textarea
+              id="attendanceNote"
+              placeholder="Add a note..."
+              rows="3"
+            ></textarea>
+
+            <button type="submit" class="primary-btn">
+              Save Attendance
+            </button>
+
+          </form>
+
+        </div>
+
+        <!-- ADD SCHEDULE -->
+        <div class="admin-section" id="addSchedule">
+
+          <form id="scheduleForm">
+
+            <label for="scheduleSubject">Subject / Class</label>
+            <input
+              type="text"
+              id="scheduleSubject"
+              placeholder="Subject name"
+              required
+            >
+
+            <label for="scheduleDate">Date</label>
+            <input type="date" id="scheduleDate" required>
+
+            <label for="scheduleTime">Start Time</label>
+            <input type="time" id="scheduleTime" required>
+
+            <label for="scheduleDetails">Details</label>
+
+            <textarea
+              id="scheduleDetails"
+              placeholder="Schedule details..."
+              rows="3"
+            ></textarea>
+
+            <button type="submit" class="primary-btn">
+              Save Schedule
+            </button>
+
+          </form>
+
+        </div>
+
+        <!-- MANAGE ACTIVITY -->
+        <div class="admin-section" id="manageActivity">
+          <div id="adminActivityList"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-line"></div>
+    <p>STUDY TIME</p>
+    <small>Class Management Interface · Made with JIBON</small>
+  </footer>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- LIQUID UP BUTTON -->
+<button id="liquidUp" aria-label="Scroll to top">
+  <canvas id="liquidOrb"></canvas>
+  <span class="liquidArrow">↑</span>
+</button>
+
+<!-- LIBRARIES -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- MAIN SCRIPT — LOAD ONCE -->
+<script src="script.js"></script>
+
+</body>
+</html>
